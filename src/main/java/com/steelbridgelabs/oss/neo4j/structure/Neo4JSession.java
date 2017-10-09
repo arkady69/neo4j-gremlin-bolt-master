@@ -825,7 +825,7 @@ class Neo4JSession implements AutoCloseable {
 
                     List<StackTraceElement> traceElements = Arrays.stream(stackTrace)
                             .filter(se -> se.getClassName().startsWith("com.sosacorp"))
-                            .filter(se -> !se.getMethodName().equals("apply"))
+                            .filter(se -> !se.getMethodName().equals("apply")).limit(5)
                             .collect(Collectors.toList());
 
                     logger.info(StringUtils.join(traceElements, "\n------>\t"));
