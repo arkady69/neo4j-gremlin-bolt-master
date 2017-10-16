@@ -1,20 +1,28 @@
 package com.steelbridgelabs.oss.neo4j.structure;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.apache.tinkerpop.gremlin.structure.Property;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.apache.tinkerpop.gremlin.structure.VertexProperty;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Iterator;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Data
-@AllArgsConstructor
-public class ImemoryVertexProperty<V> implements VertexProperty<V>{
+public class Neo4jRestVertexProperty<V> implements VertexProperty<V> {
     private String key;
     private V value;
+
+
+    public Neo4jRestVertexProperty(String key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public Neo4jRestVertexProperty(String key) {
+        this.key = key;
+    }
 
     @Override
     public String key() {
@@ -23,7 +31,9 @@ public class ImemoryVertexProperty<V> implements VertexProperty<V>{
 
     @Override
     public V value() throws NoSuchElementException {
-        return value;
+        if (isPresent()) return value;
+
+        throw new NoSuchElementException();
     }
 
     @Override
@@ -33,30 +43,26 @@ public class ImemoryVertexProperty<V> implements VertexProperty<V>{
 
     @Override
     public Vertex element() {
-        throw new UnsupportedOperationException();
+        throw new NotImplementedException();
     }
 
     @Override
     public void remove() {
-        throw new UnsupportedOperationException();
+        throw new NotImplementedException();
     }
 
     @Override
     public Object id() {
-        throw new UnsupportedOperationException();
+        throw new NotImplementedException();
     }
 
     @Override
     public <V> Property<V> property(String key, V value) {
-        throw new UnsupportedOperationException();
+        throw new NoSuchElementException();
     }
 
     @Override
     public <U> Iterator<Property<U>> properties(String... propertyKeys) {
-        throw new UnsupportedOperationException();
-    }
-
-    public VertexProperty<V> asVertex() {
-        return this;
+        return null;
     }
 }
